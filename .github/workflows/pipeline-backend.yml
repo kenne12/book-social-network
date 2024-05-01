@@ -140,5 +140,6 @@ jobs:
           export EMAIL_PASSWORD= ${{ secrets.EMAIL_PASSWORD }}
           cd ci-cd
           docker-compose -f docker-compose.yml pull -q
+          docker-compose down
           docker-compose -f docker-compose.yml up -d
           EOF
