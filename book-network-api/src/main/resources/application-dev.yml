@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    url: ${BSN_DATABASE_URL:jdbc:postgresql://localhost:5433/book_social_network}
+    username: ${BSN_DATABASE_USERNAME:username}
+    password: ${BSN_DATABASE_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: ${EMAIL_HOSTNAME:localhost}
+#    host: smtp.gmail.com
+#    port: 465
+    port: ${EMAIL_PORT:1025}
+    username: ${EMAIL_USER_NAME:kenne}
+    password: ${EMAIL_PASSWORD:kenne}
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enable: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+
+application:
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B625645367566B5970
+      expiration: 86400000
+  mailing:
+    frontend:
+      activation-url: ${BSN_ACTIVATION_URL:http://localhost:4200/activate-account}
+  cors:
+    origins: http://192.168.13.130:8088,http://192.168.13.130:8080,http://localhost:4200,http://book-sn-ui:80,http://book-sn-ui:8080,http://192.168.1.120:8080,http://192.168.1.120:80,http://localhost:8080
+  file:
+    upload:
+      photos:
+        photos-output-path: ./uploads

@@ -1,0 +1,65 @@
+services:
+  postgres:
+    container_name: postgres-sql-bsn
+    image: postgres
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: book_social_network
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5433:5432
+    networks:
+      - spring-demo
+    restart: unless-stopped
+  mail-dev:
+    container_name: mail-dev-bsn
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+    networks:
+      - spring-demo
+
+  bsn-api:
+    container_name: book-sn-api
+    image: kennegervais/bsn:1.0.0
+    #build: ./book-network-api
+    expose:
+      - '8088'
+    ports:
+      - '8021:8088'
+    environment:
+      - BSN_DATABASE_URL=jdbc:postgresql://postgres-sql-bsn:5432/book_social_network
+      - BSN_DATABASE_USERNAME=username
+      - BSN_DATABASE_PASSWORD=password
+      - BSN_ACTIVATION_URL=http://book-sn-ui:80/activate-account
+      - EMAIL_HOSTNAME=mail-dev-bsn
+      - EMAIL_PORT=1025
+      - PROFILE=dev
+    restart: unless-stopped
+    networks:
+      - spring-demo
+    depends_on:
+      - postgres
+  bsn-ui:
+    container_name: book-sn-ui
+    #build: ./book-network-ui
+    image: kennegervais/bsn-ui:1.0.0
+    expose:
+      - '80'
+    ports:
+      - '8080:80'
+    networks:
+      - spring-demo
+    depends_on:
+      - bsn-api
+networks:
+  spring-demo:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
