@@ -32,13 +32,13 @@ services:
     ports:
       - '8088:8088'
     environment:
-      - BSN_DATABASE_URL=jdbc:postgresql://postgres-sql-bsn:5432/book_social_network
+      - BSN_DATABASE_URL=jdbc:postgresql://postgres-sql-bsn:5432/book_social_network_prod_db
       - BSN_DATABASE_USERNAME=username
       - BSN_DATABASE_PASSWORD=password
       - BSN_ACTIVATION_URL=http://book-sn-ui:80/activate-account
       - EMAIL_HOSTNAME=mail-dev-bsn
       - EMAIL_PORT=1025
-      - PROFILE=dev
+      - PROFILE=prod
     restart: unless-stopped
     networks:
       - spring-demo
