@@ -9,9 +9,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  //rootUrl: string = 'http://localhost:8088/api/v1';
+  rootUrl: string = 'http://localhost:8088/api/v1';
   //rootUrl: string = 'http://book-sn-api:8088/api/v1';
-  rootUrl: string = 'http://192.168.1.120:8021/api/v1';
+  //rootUrl: string = 'http://192.168.1.130:8088/api/v1';
 }
 
 /**

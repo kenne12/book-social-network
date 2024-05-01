@@ -30,7 +30,7 @@ services:
     expose:
       - '8088'
     ports:
-      - '8021:8088'
+      - '8088:8088'
     environment:
       - BSN_DATABASE_URL=jdbc:postgresql://postgres-sql-bsn:5432/book_social_network
       - BSN_DATABASE_USERNAME=username
@@ -51,7 +51,7 @@ services:
     expose:
       - '80'
     ports:
-      - '8080:80'
+      - '8066:80'
     networks:
       - spring-demo
     depends_on:
