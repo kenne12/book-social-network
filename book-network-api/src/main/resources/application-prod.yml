@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${BSN_DATABASE_URL:jdbc:postgresql://192.168.13.130:5432/book_social_network_dev_db}
+    url: ${BSN_DATABASE_URL:jdbc:postgresql://192.168.13.130:5432/book_social_network_prod_db}
     username: ${BSN_DATABASE_USERNAME:postgres}
     password: ${BSN_DATABASE_PASSWORD:admin_sql_1234}
     driver-class-name: org.postgresql.Driver
@@ -40,7 +40,7 @@ application:
     frontend:
       activation-url: ${BSN_ACTIVATION_URL:http://localhost:4200/activate-account}
   cors:
-    origins: http://localhost:4200,http://192.168.13.130:8088,http://192.168.13.130:8066,http://book-sn-ui:80,http://localhost:8066
+    origins: http://192.168.13.130:8066,http://book-sn-ui:80,http://localhost:8066
   file:
     upload:
       photos:

@@ -10,7 +10,7 @@ services:
     volumes:
       - postgres:/data/postgres
     ports:
-      - 5433:5432
+      - 5434:5432
     networks:
       - spring-demo
     restart: unless-stopped
@@ -25,20 +25,20 @@ services:
 
   bsn-api:
     container_name: book-sn-api
-    image: kennegervais/bsn:1.0.0
+    image: kennegervais/bsn-api:1.0.0
     #build: ./book-network-api
     expose:
       - '8088'
     ports:
-      - '8021:8088'
+      - '8088:8088'
     environment:
-      - BSN_DATABASE_URL=jdbc:postgresql://postgres-sql-bsn:5432/book_social_network
+      - BSN_DATABASE_URL=jdbc:postgresql://postgres-sql-bsn:5432/book_social_network_prod_db
       - BSN_DATABASE_USERNAME=username
       - BSN_DATABASE_PASSWORD=password
       - BSN_ACTIVATION_URL=http://book-sn-ui:80/activate-account
       - EMAIL_HOSTNAME=mail-dev-bsn
       - EMAIL_PORT=1025
-      - PROFILE=dev
+      - PROFILE=prod
     restart: unless-stopped
     networks:
       - spring-demo
@@ -51,7 +51,7 @@ services:
     expose:
       - '80'
     ports:
-      - '8080:80'
+      - '8066:80'
     networks:
       - spring-demo
     depends_on:

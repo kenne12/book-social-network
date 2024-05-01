@@ -56,5 +56,6 @@ jobs:
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF
           cd ci-cd
           docker-compose -f docker-compose.yml pull -q
+          docker-compose down
           docker-compose -f docker-compose.yml up -d
           EOF
