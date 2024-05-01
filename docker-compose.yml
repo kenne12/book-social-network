@@ -25,7 +25,7 @@ services:
 
   bsn-api:
     container_name: book-sn-api
-    image: kennegervais/bsn:1.0.0
+    image: kennegervais/bsn-api:1.0.0
     #build: ./book-network-api
     expose:
       - '8088'
