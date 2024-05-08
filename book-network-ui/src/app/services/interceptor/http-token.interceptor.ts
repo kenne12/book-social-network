@@ -9,6 +9,7 @@ import {
 import {inject, Injectable} from "@angular/core";
 import {TokenService} from "../token/token.service";
 import {Observable} from "rxjs";
+import {KeycloakService} from "../keycloak/keycloak.service";
 
 
 // export const httpTokenInterceptor: HttpInterceptorFn = (req, next) => {
@@ -32,15 +33,15 @@ import {Observable} from "rxjs";
 
 @Injectable()
 export class httpTokenInterceptor implements HttpInterceptor {
-    constructor(private tokenService: TokenService) {
+    constructor(private keycloakService: KeycloakService) {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-        const token = this.tokenService.token;
+        const token = this.keycloakService.keycloak.token;
         if (token) {
             const authRequest = req.clone({
                 headers: new HttpHeaders({
-                    Authorization: "Bearer " + token
+                    Authorization: `Bearer ${ token }`
                 })
             });
 
@@ -48,4 +49,18 @@ export class httpTokenInterceptor implements HttpInterceptor {
         }
         return next.handle(req);
     }
+
+    // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    //     const token = this.tokenService.token;
+    //     if (token) {
+    //         const authRequest = req.clone({
+    //             headers: new HttpHeaders({
+    //                 Authorization: "Bearer " + token
+    //             })
+    //         });
+    //
+    //         return next.handle(authRequest);
+    //     }
+    //     return next.handle(req);
+    // }
 }

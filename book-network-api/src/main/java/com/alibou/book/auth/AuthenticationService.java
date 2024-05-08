@@ -25,12 +25,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationService {
 
-    private final UserRepository userRepository;
+    /*private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenRepository tokenRepository;
@@ -133,5 +133,5 @@ public class AuthenticationService {
 
         savedToken.setValidatedAt(LocalDateTime.now());
         tokenRepository.save(savedToken);
-    }
+    }*/
 }

@@ -32,10 +32,9 @@ public class Book extends BaseEntity {
     private boolean archived;
     private boolean shareable;
 
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User owner;
+    // @ManyToOne
+    // @JoinColumn(name = "user_id", referencedColumnName = "id")
+    // private User owner;
 
     @OneToMany(mappedBy = "book")
     private List<FeedBack> feedBacks;

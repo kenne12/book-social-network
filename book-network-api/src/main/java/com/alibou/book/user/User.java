@@ -24,9 +24,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "_users")
-@EntityListeners(AuditingEntityListener.class)
+// @Entity
+// @Table(name = "_users")
+// @EntityListeners(AuditingEntityListener.class)
 @ToString
 public class User implements UserDetails, Principal, Serializable {
 

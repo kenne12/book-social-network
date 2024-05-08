@@ -24,7 +24,7 @@ const routes: Routes = [
                 component: MyBooksComponent
             },
             {
-                path: "manage/:bookId",
+                path: "manage",
                 component: ManageBookComponent,
                 canActivate: [authGuard]
             },

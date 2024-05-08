@@ -15,8 +15,8 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
     host: ${EMAIL_HOSTNAME:localhost}
-#    host: smtp.gmail.com
-#    port: 465
+    #    host: smtp.gmail.com
+    #    port: 465
     port: ${EMAIL_PORT:1025}
     username: ${EMAIL_USER_NAME:kenne}
     password: ${EMAIL_PASSWORD:kenne}
@@ -30,7 +30,11 @@ spring:
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:9090/realms/book-social-network"
 application:
   security:
     jwt:

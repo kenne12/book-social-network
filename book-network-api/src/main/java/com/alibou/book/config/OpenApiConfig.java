@@ -33,7 +33,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 ),
                 @Server(
                         description = "PROD ENV",
-                        url = "https://some-url.com"
+                        url = "http://192.168.13.130:8088/api/v1"
                 )
         },
         security = {

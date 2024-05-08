@@ -9,6 +9,7 @@ import {BookResponse} from "../../../../services/models/book-response";
     templateUrl: './my-books.component.html',
     styleUrl: './my-books.component.scss'
 })
+
 export class MyBooksComponent implements OnInit {
 
     bookResponse: PageResponseBookResponse = {};
@@ -78,7 +79,7 @@ export class MyBooksComponent implements OnInit {
     }
 
     editBook(book: BookResponse) {
-        this.router.navigate(["books", "manage", book.id]);
+        this.router.navigate(["books", "manage"], {queryParams: {bookId: book.id}});
     }
 
     shareBook(book: BookResponse) {

@@ -2,7 +2,6 @@ package com.alibou.book.history;
 
 import com.alibou.book.book.Book;
 import com.alibou.book.common.BaseEntity;
-import com.alibou.book.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -26,9 +25,12 @@ public class BookTransactionHistory extends BaseEntity {
     @Column(name = "return_approved")
     private boolean returnApproved;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    // @ManyToOne
+    // @JoinColumn(name = "user_id")
+    // private User user;
+
+    @Column(name = "user_id")
+    private String userId;
 
     @ManyToOne
     @JoinColumn(name = "book_id")

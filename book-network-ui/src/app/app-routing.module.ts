@@ -6,7 +6,11 @@ import {ActivateAccountComponent} from "./pages/activate-account/activate-accoun
 import {authGuard} from "./services/guard/auth.guard";
 
 const routes: Routes = [
-    {path: '', component: LoginComponent},
+    {
+        path: '',
+        redirectTo: "books",
+        pathMatch: "full"
+    },
     {
         path: "login",
         component: LoginComponent

@@ -21,27 +21,34 @@ export class ManageBookComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const bookId = this.activatedRoute.snapshot.params["bookId"];
-        if (bookId) {
-            this.bookService.findBookById({
-                "book-id": bookId
-            }).subscribe({
-                next: (book) => {
-                    this.bookRequest = {
-                        id: book.id,
-                        title: book.title as string,
-                        authorName: book.authorName as string,
-                        isbn: book.isbn as string,
-                        shareable: book.shareable,
-                        synopsis: book.synopsis as string
-                    }
+        //const bookId = this.activatedRoute.snapshot.params["bookId"];
 
-                    if (book.cover) {
-                        this.selectedPicture = "data:image/jpg;base64," + book.cover
+        this.activatedRoute.queryParamMap.subscribe(params=> {
+            const bookId = params.get("bookId");
+
+            if (bookId) {
+                this.bookService.findBookById({
+                    "book-id": parseInt(bookId)
+                }).subscribe({
+                    next: (book) => {
+                        this.bookRequest = {
+                            id: book.id,
+                            title: book.title as string,
+                            authorName: book.authorName as string,
+                            isbn: book.isbn as string,
+                            shareable: book.shareable,
+                            synopsis: book.synopsis as string
+                        }
+
+                        if (book.cover) {
+                            this.selectedPicture = "data:image/jpg;base64," + book.cover
+                        }
                     }
-                }
-            })
-        }
+                })
+            }
+        });
+
+
     }
 
     onFileSelected(event: any) {

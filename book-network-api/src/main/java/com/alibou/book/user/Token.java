@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+//@Entity
 public class Token implements Serializable {
 
     @Id
@@ -27,7 +27,7 @@ public class Token implements Serializable {
     @Column(name = "validated_at")
     private LocalDateTime validatedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
-    private User user;
+     @ManyToOne
+     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id")
+     private User user;
 }

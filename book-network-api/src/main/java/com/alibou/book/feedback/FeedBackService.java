@@ -33,9 +33,13 @@ public class FeedBackService {
             throw new OperationNotPermittedException("You can not give a feedback for an archived or not shareable book");
         }
 
-        User user = (User) connectedUser.getPrincipal();
+        //User user = (User) connectedUser.getPrincipal();
 
-        if (Objects.equals(book.getOwner().getId(), user.getId())) {
+        /*if (Objects.equals(book.getOwner().getId(), user.getId())) {
+            throw new OperationNotPermittedException("You can not give a feedback to your own book");
+        }*/
+
+        if (Objects.equals(book.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You can not give a feedback to your own book");
         }
 
