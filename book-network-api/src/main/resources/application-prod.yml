@@ -6,7 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
@@ -30,6 +30,12 @@ spring:
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://192.168.13.130:9090/realms/book-social-network"
 
 application:
   security:
