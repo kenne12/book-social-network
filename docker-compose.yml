@@ -51,7 +51,7 @@ services:
       - BSN_ACTIVATION_URL=http://book-sn-ui:80/activate-account
       - EMAIL_HOSTNAME=mail-dev-bsn
       - EMAIL_PORT=1025
-      - PROFILE=prod
+      - ACTIVE_PROFILE=prod
     restart: unless-stopped
     networks:
       - spring-demo
