@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${BSN_DATABASE_URL:jdbc:postgresql://192.168.13.130:5432/book_social_network_dev_db}
+    url: ${BSN_DATABASE_URL:jdbc:postgresql://192.168.13.130:5432/book_social_network_test_db}
     username: ${BSN_DATABASE_USERNAME:postgres}
     password: ${BSN_DATABASE_PASSWORD:admin_sql_1234}
     driver-class-name: org.postgresql.Driver
@@ -28,12 +28,14 @@ spring:
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
+
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9090/realms/book-social-network
-          jwk-set-uri: http://localhost:9090/realms/book-social-network/protocol/openid-connect/certs
+          issuer-uri: http://192.168.13.130:9090/realms/book-social-network
+          jwk-set-uri: http://192.168.13.130:9090/realms/book-social-network/protocol/openid-connect/certs
+
 application:
   security:
     jwt:
@@ -43,7 +45,7 @@ application:
     frontend:
       activation-url: ${BSN_ACTIVATION_URL:http://localhost:4200/activate-account}
   cors:
-    origins: http://localhost:4200,http://192.168.13.130:8088,http://192.168.13.130:8066,http://book-sn-ui:80,http://localhost:8066
+    origins: http://192.168.13.130:8066,http://book-sn-ui:80,http://localhost:8066
   file:
     upload:
       photos:

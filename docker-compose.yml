@@ -45,11 +45,13 @@ services:
     ports:
       - '8088:8088'
     environment:
-      - BSN_DATABASE_URL=jdbc:postgresql://postgres-sql-bsn:5432/book_social_network_prod_db
-      - BSN_DATABASE_USERNAME=username
-      - BSN_DATABASE_PASSWORD=password
+      - BSN_DATABASE_URL=jdbc:postgresql://192.168.13.130:5432/book_social_network_prod_db
+      - BSN_DATABASE_USERNAME=postgres
+      - BSN_DATABASE_PASSWORD=admin_sql_1234
       - BSN_ACTIVATION_URL=http://book-sn-ui:80/activate-account
       - EMAIL_HOSTNAME=mail-dev-bsn
+      - EMAIL_USER_NAME=kenne
+      - EMAIL_PASSWORD=kenne
       - EMAIL_PORT=1025
       - PROFILE=prod
     restart: unless-stopped

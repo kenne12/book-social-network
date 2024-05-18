@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${BSN_DATABASE_URL:jdbc:postgresql://192.168.13.130:5432/book_social_network_prod_db}
-    username: ${BSN_DATABASE_USERNAME:postgres}
-    password: ${BSN_DATABASE_PASSWORD:admin_sql_1234}
+    url: ${BSN_DATABASE_URL}
+    username: ${BSN_DATABASE_USERNAME}
+    password: ${BSN_DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -18,8 +18,8 @@ spring:
 #    host: smtp.gmail.com
 #    port: 465
     port: ${EMAIL_PORT:1025}
-    username: ${EMAIL_USER_NAME:kenne}
-    password: ${EMAIL_PASSWORD:kenne}
+    username: ${EMAIL_USER_NAME}
+    password: ${EMAIL_PASSWORD}
     properties:
       mail:
         smtp:
