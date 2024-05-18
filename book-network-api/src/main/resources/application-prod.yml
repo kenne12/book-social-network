@@ -36,7 +36,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://192.168.13.130:9090/realms/book-social-network
-          jwk-set-uri: http://192.168.13.130:9090/realms/book-social-network/protocol/openid-connect/certs
+          #jwk-set-uri: http://192.168.13.130:9090/realms/book-social-network/protocol/openid-connect/certs
 
 application:
   security:
