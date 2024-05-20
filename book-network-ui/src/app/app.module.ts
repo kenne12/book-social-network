@@ -32,7 +32,7 @@ export function kcFactory(kcService: KeycloakService) {
         HttpClientModule,
         FormsModule,
         CodeInputModule,
-        ApiModule.forRoot({rootUrl: environment.API_URL}),
+        ApiModule.forRoot({rootUrl: environment.API_URL})
     ],
     providers: [
         HttpClient,
