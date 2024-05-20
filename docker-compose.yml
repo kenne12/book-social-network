@@ -14,6 +14,7 @@ services:
     networks:
       - spring-demo
     restart: unless-stopped
+
   mail-dev:
     container_name: mail-dev-bsn
     image: maildev/maildev
@@ -31,6 +32,11 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://192.168.13.130:5432/keycloak_24_0_2
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: 12_admin_keycloak_23
+      KC_HOST_NAME: 192.168.13.130
     networks:
       - spring-demo
     command:
@@ -54,11 +60,15 @@ services:
       - EMAIL_PASSWORD=kenne
       - EMAIL_PORT=1025
       - PROFILE=prod
+      - BSN_KEYCLOAK_ISSUER_URI=http://keycloak-bsn:8080/realms/book-social-network
+      - BSN_KEYCLOAK_JWK_URI=http://keycloak-bsn:8080/realms/book-social-network/protocol/openid-connect/certs
+      - BSN_JWT_SECRET_KEY=404E635266556A586E3272357538782F413F4428472B4B625645367566B5970
     restart: unless-stopped
     networks:
       - spring-demo
     depends_on:
       - postgres
+
   bsn-ui:
     container_name: book-sn-ui
     #build: ./book-network-ui
@@ -71,6 +81,7 @@ services:
       - spring-demo
     depends_on:
       - bsn-api
+
 networks:
   spring-demo:
     driver: bridge

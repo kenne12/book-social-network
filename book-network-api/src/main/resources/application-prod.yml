@@ -14,10 +14,10 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
-    host: ${EMAIL_HOSTNAME:localhost}
+    host: ${EMAIL_HOSTNAME}
 #    host: smtp.gmail.com
 #    port: 465
-    port: ${EMAIL_PORT:1025}
+    port: ${EMAIL_PORT}
     username: ${EMAIL_USER_NAME}
     password: ${EMAIL_PASSWORD}
     properties:
@@ -35,19 +35,19 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://192.168.13.130:9090/realms/book-social-network
-          #jwk-set-uri: http://192.168.13.130:9090/realms/book-social-network/protocol/openid-connect/certs
+          issuer-uri: ${BSN_KEYCLOAK_ISSUER_URI}
+          jwk-set-uri: ${BSN_KEYCLOAK_JWK_URI}
 
 application:
   security:
     jwt:
-      secret-key: 404E635266556A586E3272357538782F413F4428472B4B625645367566B5970
+      secret-key: ${BSN_JWT_SECRET_KEY}
       expiration: 86400000
   mailing:
     frontend:
-      activation-url: ${BSN_ACTIVATION_URL:http://localhost:4200/activate-account}
+      activation-url: ${BSN_ACTIVATION_URL}
   cors:
-    origins: http://192.168.13.130:8066,http://book-sn-ui:80,http://localhost:8066
+    origins: http://192.168.13.130:8066,http://book-sn-ui:80
   file:
     upload:
       photos:
