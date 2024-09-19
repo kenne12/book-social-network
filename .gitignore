@@ -4,3 +4,6 @@
 *.iws
 *.ipr
 *.iml
+/data
+/docker/mysql
+/uploads
