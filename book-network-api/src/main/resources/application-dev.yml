@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${BSN_DATABASE_URL:jdbc:postgresql://192.168.13.130:5432/book_social_network_dev_db}
-    username: ${BSN_DATABASE_USERNAME:postgres}
-    password: ${BSN_DATABASE_PASSWORD:admin_sql_1234}
+    url: ${BSN_DATABASE_URL:jdbc:postgresql://192.168.1.145:5433/book_social_network}
+    username: ${BSN_DATABASE_USERNAME:username}
+    password: ${BSN_DATABASE_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -32,8 +32,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9090/realms/book-social-network
-          jwk-set-uri: http://localhost:9090/realms/book-social-network/protocol/openid-connect/certs
+          issuer-uri: ${BSN_KEYCLOAK_ISSUER_URI:http://localhost:9090/realms/book-social-network}
+          jwk-set-uri: ${BSN_KEYCLOAK_JWK_URI:http://localhost:9090/realms/book-social-network/protocol/openid-connect/certs}
 application:
   security:
     jwt:
@@ -43,7 +43,7 @@ application:
     frontend:
       activation-url: ${BSN_ACTIVATION_URL:http://localhost:4200/activate-account}
   cors:
-    origins: http://localhost:4200,http://192.168.13.130:8088,http://192.168.13.130:8066,http://book-sn-ui:80,http://localhost:8066
+    origins: ${BSN_UI_ORIGIN:http://192.168.1.145:4200,http://localhost:4200}
   file:
     upload:
       photos:

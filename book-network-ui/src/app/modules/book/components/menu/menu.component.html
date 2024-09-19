@@ -42,13 +42,13 @@
                 </li>
             </ul>
 
-            <form class="d-flex gap-2 align-items-center" role="search">
+            <form *ngIf="profile" class="d-flex gap-2 align-items-center" role="search">
                 <input class="form-control" type="text" placeholder="Find a book" aria-label="Search" />
                 <button class="btn btn-outline-success" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
                 <span>Welcome</span>
-                <span class="text-capitalize fw-bold">Kenne</span>
+                <span class="text-capitalize fw-bold">{{profile.firstName}}</span>
 
                 <button class="btn btn-link" type="button"
                         (click)="logout()" >

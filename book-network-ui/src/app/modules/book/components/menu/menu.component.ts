@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {KeycloakService} from "../../../../services/keycloak/keycloak.service";
+import {UserProfile} from "../../../../services/keycloak/user-profile";
 
 @Component({
     selector: 'app-menu',
@@ -8,7 +9,10 @@ import {KeycloakService} from "../../../../services/keycloak/keycloak.service";
 })
 export class MenuComponent implements OnInit {
 
+    profile: UserProfile | undefined;
+
     constructor(private keycloakService: KeycloakService) {
+      this.profile = this.keycloakService.profile;
     }
 
     ngOnInit(): void {
