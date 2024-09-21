@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: ${BSN_DATABASE_URL}
-    username: ${BSN_DATABASE_USERNAME}
-    password: ${BSN_DATABASE_PASSWORD}
+    username: ${BSN_DATABASE_USERNAME:username}
+    password: ${BSN_DATABASE_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
