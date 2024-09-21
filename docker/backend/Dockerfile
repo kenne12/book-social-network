@@ -22,4 +22,5 @@ ENV ACTIVE_PROFILE=${PROFILE}
 ENV JAR_VERSION=${APP_VERSION}
 ENV BD_URL=${BSN_DATABASE_URL}
 
-CMD java -jar -Dspring.profiles.active=${ACTIVE_PROFILE} -Dspring.datasource.url=${BD_URL} book-network-${JAR_VERSION}.jar
+CMD java -jar -Dspring.profiles.active=${ACTIVE_PROFILE} book-network-${JAR_VERSION}.jar
+#CMD java -jar -Dspring.profiles.active=${ACTIVE_PROFILE} -Dspring.datasource.url=${BD_URL} book-network-${JAR_VERSION}.jar
