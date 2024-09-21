@@ -10,7 +10,7 @@ services:
     volumes:
       - /home/kenne/bsn-ci-cd/data/postgres:/var/lib/postgresql/data
     ports:
-      - "5433:5432"
+      - "5435:5432"
     networks:
       - spring-demo
     restart: unless-stopped
@@ -67,7 +67,7 @@ services:
     ports:
       - "8088:8088"
     environment:
-      - BSN_DATABASE_URL=jdbc:postgresql://192.168.1.10:5433/book_social_network
+      - BSN_DATABASE_URL=jdbc:postgresql://192.168.1.10:5435/book_social_network
       - BSN_DATABASE_USERNAME=username
       - BSN_DATABASE_PASSWORD=password
       - BSN_ACTIVATION_URL=http://book-sn-ui:80/activate-account

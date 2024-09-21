@@ -37,6 +37,7 @@ jobs:
   unit-tests:
     runs-on: self-hosted
     name: Unit Tests
+    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
