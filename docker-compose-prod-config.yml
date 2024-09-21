@@ -80,7 +80,7 @@ services:
       - BSN_KEYCLOAK_ISSUER_URI=http://192.168.1.10:9090/realms/book-social-network
       - BSN_KEYCLOAK_JWK_URI=http://192.168.1.10:9090/realms/book-social-network/protocol/openid-connect/certs
       - BSN_JWT_SECRET_KEY=404E635266556A586E3272357538782F413F4428472B4B625645367566B5970
-      - BSN_UI_ORIGIN=http://localhost:4200,http://192.168.1.10:4200
+      - BSN_UI_ORIGIN=http://localhost:4200,http://192.168.1.10:4200,http://book-sn-ui:4200
     restart: unless-stopped
     volumes:
       - /home/kenne/bsn-ci-cd/uploads/users:/app/uploads/users
