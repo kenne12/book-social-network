@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - ci/pipeline
+      - main
+      - develop
     paths:
       - book-network-api/**
       - docker/backend/**
       - 'docker-compose.yml'
+      - 'docker-compose-prod-config.yml'
       - .github/workflows/*-backend.yml
 jobs:
   compile:
@@ -78,6 +81,7 @@ jobs:
     name: Build Docker image
     runs-on: self-hosted
     needs: [build]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -124,12 +128,13 @@ jobs:
     name: Deploy Backend
     runs-on: self-hosted
     needs: [build-image]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
     steps:
       - name: Create deploy folder
-        run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "mkdir -p ci-cd"
+        run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "mkdir -p bsn-ci-cd"
 
       - name: Copy docker-compose file
-        run: scp docker-compose.yml ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:ci-cd/docker-compose.yml
+        run: scp docker-compose-prod-config.yml ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:bsn-ci-cd/docker-compose.yml
 
       - name: Set ENV variable and deploy
         run: |

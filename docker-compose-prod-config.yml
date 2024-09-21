@@ -8,7 +8,7 @@ services:
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: book_social_network
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - /home/kenne/bsn-ci-cd/data/postgres:/var/lib/postgresql/data
     ports:
       - "5433:5432"
     networks:
@@ -28,8 +28,8 @@ services:
     container_name: keycloak-mysql
     image: mysql:8.3.0
     volumes:
-      - ./data/mysql_keycloak:/var/lib/mysql
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - /home/kenne/bsn-ci-cd/data/mysql_keycloak:/var/lib/mysql
+      - /home/kenne/bsn-ci-cd/docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: keycloak_24_0_2
@@ -47,10 +47,10 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_DB: mysql
-      KC_DB_URL: jdbc:mysql://192.168.1.145:3307/keycloak_24_0_2
+      KC_DB_URL: jdbc:mysql://192.168.1.10:3307/keycloak_24_0_2
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: root
-      KC_HOST_NAME: 192.168.1.145
+      KC_HOST_NAME: 192.168.1.10
     networks:
       - spring-demo
     command: ["start-dev", "--import-realm"]
@@ -61,14 +61,13 @@ services:
 
   bsn-api:
     container_name: book-sn-api
-    image: kennegervais/bsn-api:1.0.0
-    #build: ./book-network-api
+    image: kennegervais/bsn-api:latest
     expose:
       - "8088"
     ports:
       - "8088:8088"
     environment:
-      - BSN_DATABASE_URL=jdbc:postgresql://192.168.1.145:5433/book_social_network
+      - BSN_DATABASE_URL=jdbc:postgresql://192.168.1.10:5433/book_social_network
       - BSN_DATABASE_USERNAME=username
       - BSN_DATABASE_PASSWORD=password
       - BSN_ACTIVATION_URL=http://book-sn-ui:80/activate-account
@@ -78,13 +77,13 @@ services:
       - EMAIL_PORT=1025
       - PROFILE=prod
       - ACTIVE_PROFILE=prod
-      - BSN_KEYCLOAK_ISSUER_URI=http://192.168.1.145:9090/realms/book-social-network
-      - BSN_KEYCLOAK_JWK_URI=http://192.168.1.145:9090/realms/book-social-network/protocol/openid-connect/certs
+      - BSN_KEYCLOAK_ISSUER_URI=http://192.168.1.10:9090/realms/book-social-network
+      - BSN_KEYCLOAK_JWK_URI=http://192.168.1.10:9090/realms/book-social-network/protocol/openid-connect/certs
       - BSN_JWT_SECRET_KEY=404E635266556A586E3272357538782F413F4428472B4B625645367566B5970
-      - BSN_UI_ORIGIN=http://localhost:4200,http://192.168.1.145:4200
+      - BSN_UI_ORIGIN=http://localhost:4200,http://192.168.1.10:4200
     restart: unless-stopped
     volumes:
-      - ./uploads/users:/app/uploads/users
+      - /home/kenne/bsn-ci-cd/uploads/users:/app/uploads/users
     networks:
       - spring-demo
     depends_on:
@@ -92,8 +91,7 @@ services:
 
   bsn-ui:
     container_name: book-sn-ui
-    #build: ./book-network-ui
-    image: kennegervais/bsn-ui:2.0.0
+    image: kennegervais/bsn-ui:latest
     expose:
       - "80"
     ports:
