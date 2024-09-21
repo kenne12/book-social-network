@@ -46,10 +46,10 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB: mysql
-      KC_DB_URL: jdbc:mysql://192.168.1.10:3307/keycloak_24_0_2
-      KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: root
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://192.168.1.10:5432/keycloak_24_0_2
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: admin_sql_1234
       KC_HOST_NAME: 192.168.1.10
     networks:
       - spring-demo
