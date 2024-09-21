@@ -1,6 +1,7 @@
 package com.alibou.book.config;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class BeansConfig {
 
     @Value("${application.cors.origins}")
@@ -34,6 +36,7 @@ public class BeansConfig {
 
     @Bean
     public CorsFilter corsFilter() {
+        log.info("Configuring CorsFilter : {}",allowOrigins);
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
@@ -50,7 +53,8 @@ public class BeansConfig {
                 "Access-Control-Request-Method",
                 "Access-Control-Request-Headers"));
 
-        corsConfiguration.setExposedHeaders(Arrays.asList("Origin",
+        corsConfiguration.setExposedHeaders(
+                Arrays.asList("Origin",
                 "Content-Type",
                 "Accept",
                 "Jwt-Token",
@@ -59,7 +63,8 @@ public class BeansConfig {
                 "X-Requested-With",
                 "Access-Control-Allow-Origin",
                 "Access-Control-Allow-Credentials",
-                "File-Name"));
+                "File-Name")
+        );
 
         corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
 

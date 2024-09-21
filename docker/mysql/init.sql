@@ -1,1 +1,2 @@
-CREATE DATABASE IF NOT EXISTS inventory_service;
+CREATE DATABASE IF NOT EXISTS keycloak_prod_db;
+CREATE DATABASE IF NOT EXISTS keycloak_dev_db;

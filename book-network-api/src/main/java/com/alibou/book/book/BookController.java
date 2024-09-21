@@ -18,8 +18,8 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping
-    public ResponseEntity<Integer> saveBook(@RequestBody @Valid BookRequest request, Authentication connectedUser) {
-        return ResponseEntity.ok(bookService.save(request, connectedUser));
+    public ResponseEntity<Integer> saveBook(@RequestBody @Valid BookRequest request) {
+        return ResponseEntity.ok(bookService.save(request));
     }
 
     @GetMapping("/{book-id}")

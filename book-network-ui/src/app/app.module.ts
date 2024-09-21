@@ -14,6 +14,7 @@ import {ApiModule} from "./services/api.module";
 import {KeycloakService} from "./services/keycloak/keycloak.service";
 
 import {environment} from "../environments/environment";
+import {ToastrModule} from "ngx-toastr";
 
 export function kcFactory(kcService: KeycloakService) {
     return () => kcService.init();
@@ -32,7 +33,15 @@ export function kcFactory(kcService: KeycloakService) {
         HttpClientModule,
         FormsModule,
         CodeInputModule,
-        ApiModule.forRoot({rootUrl: environment.API_URL})
+        ApiModule.forRoot({rootUrl: environment.API_URL}),
+        ToastrModule.forRoot({
+          progressBar: true,
+          closeButton: true,
+          newestOnTop: true,
+          tapToDismiss: true,
+          positionClass: "toast-bottom-right",
+          timeOut: 8000
+        })
     ],
     providers: [
         HttpClient,

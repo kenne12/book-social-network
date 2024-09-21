@@ -14,12 +14,11 @@ public class FeedBackMapper {
                 .book(Book.builder()
                         .id(request.bookId())
                         .archived(false) // Not required and has no impact
-                        .archived(false) // the same
                         .build())
                 .build();
     }
 
-    public FeedBackResponse toFeedBackResponse(FeedBack feedBack, Integer userId) {
+    public FeedBackResponse toFeedBackResponse(FeedBack feedBack, String userId) {
 
         return FeedBackResponse.builder()
                 .note(feedBack.getNote())

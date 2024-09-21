@@ -7,6 +7,7 @@ import {ManageBookComponent} from "./pages/manage-book/manage-book.component";
 import {BorrowedBookListComponent} from "./pages/borrowed-book-list/borrowed-book-list.component";
 import {ReturnBooksComponent} from "./pages/return-books/return-books.component";
 import {authGuard} from "../../services/guard/auth.guard";
+import {BookDetailsComponent} from "./pages/book-details/book-details.component";
 
 const routes: Routes = [
     {
@@ -14,30 +15,41 @@ const routes: Routes = [
         component: MainComponent,
         canActivate: [authGuard],
         children: [
-            {
-                path: "",
-                component: BookListComponent,
-                canActivate: [authGuard]
-            },
-            {
-                path: "my-books",
-                component: MyBooksComponent
-            },
-            {
-                path: "manage",
-                component: ManageBookComponent,
-                canActivate: [authGuard]
-            },
-            {
-                path: "my-borrowed-books",
-                component: BorrowedBookListComponent,
-                canActivate: [authGuard]
-            },
-            {
-                path: "my-returned-books",
-                component: ReturnBooksComponent,
-                canActivate: [authGuard]
-            }
+          {
+            path: '',
+            component: BookListComponent,
+            canActivate: [authGuard]
+          },
+          {
+            path: 'my-books',
+            component: MyBooksComponent,
+            canActivate: [authGuard]
+          },
+          {
+            path: 'my-borrowed-books',
+            component: BorrowedBookListComponent,
+            canActivate: [authGuard]
+          },
+          {
+            path: 'my-returned-books',
+            component: ReturnBooksComponent,
+            canActivate: [authGuard]
+          },
+          {
+            path: 'details/:bookId',
+            component: BookDetailsComponent,
+            canActivate: [authGuard]
+          },
+          {
+            path: 'manage',
+            component: ManageBookComponent,
+            canActivate: [authGuard]
+          },
+          {
+            path: 'manage/:bookId',
+            component: ManageBookComponent,
+            canActivate: [authGuard]
+          }
         ]
     }
 ];

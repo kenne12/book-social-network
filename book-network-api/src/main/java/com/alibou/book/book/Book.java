@@ -39,7 +39,6 @@ public class Book extends BaseEntity {
     @OneToMany(mappedBy = "book")
     private List<FeedBack> feedBacks;
 
-
     @OneToMany(mappedBy = "book")
     private List<BookTransactionHistory> histories;
 

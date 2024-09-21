@@ -10,7 +10,8 @@
     <app-book-card
             *ngFor="let book of bookResponse?.content"
             [book]="book"
-            (borrow)="borrowBook($event)">
+            (borrow)="borrowBook($event)"
+            (details)="displayBookDetails($event)">
     </app-book-card>
 </div>
 

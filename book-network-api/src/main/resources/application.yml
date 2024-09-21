@@ -2,7 +2,7 @@ spring:
   application:
     name: book-network-api
   profiles:
-    active: ${PROFILE:dev}
+    active: ${ACTIVE_PROFILE:dev}
   servlet:
     multipart:
       max-file-size: 50MB

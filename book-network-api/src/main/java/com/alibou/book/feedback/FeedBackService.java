@@ -4,9 +4,9 @@ import com.alibou.book.book.Book;
 import com.alibou.book.book.BookRepository;
 import com.alibou.book.book.PageResponse;
 import com.alibou.book.exception.OperationNotPermittedException;
-import com.alibou.book.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +18,7 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FeedBackService {
 
     private final BookRepository bookRepository;
@@ -33,12 +34,6 @@ public class FeedBackService {
             throw new OperationNotPermittedException("You can not give a feedback for an archived or not shareable book");
         }
 
-        //User user = (User) connectedUser.getPrincipal();
-
-        /*if (Objects.equals(book.getOwner().getId(), user.getId())) {
-            throw new OperationNotPermittedException("You can not give a feedback to your own book");
-        }*/
-
         if (Objects.equals(book.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You can not give a feedback to your own book");
         }
@@ -50,12 +45,11 @@ public class FeedBackService {
     public PageResponse<FeedBackResponse> findAllFeedBacksByBook(Integer bookId, int page, int size, Authentication connectedUser) {
 
         Pageable pageable = PageRequest.of(page, size);
-        User user = (User) connectedUser.getPrincipal();
 
         Page<FeedBack> feedBacks = feedBackRepository.findAllByBookId(bookId, pageable);
 
         List<FeedBackResponse> feedBackResponses = feedBacks.getContent().stream()
-                .map(f -> feedBackMapper.toFeedBackResponse(f, user.getId()))
+                .map(f -> feedBackMapper.toFeedBackResponse(f, connectedUser.getName()))
                 .toList();
 
         return PageResponse.<FeedBackResponse>builder()

@@ -4,6 +4,10 @@ import com.alibou.book.exception.OperationNotPermittedException;
 import com.alibou.book.file.FileStorageService;
 import com.alibou.book.history.BookTransactionHistory;
 import com.alibou.book.history.BookTransactionHistoryRepository;
+import com.alibou.book.notification.Notification;
+import com.alibou.book.notification.NotificationService;
+import com.alibou.book.notification.NotificationStatus;
+import com.alibou.book.utils.Utils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,8 +30,9 @@ public class BookService {
     private final BookTransactionHistoryRepository transactionHistoryRepository;
     private final BookTransactionHistoryRepository bookTransactionHistoryRepository;
     private final FileStorageService fileStorageService;
+    private final NotificationService notificationService;
 
-    public Integer save(BookRequest request, Authentication connectedUser) {
+    public Integer save(BookRequest request) {
 
         Book book = bookMapper.toBook(request);
 
@@ -45,8 +50,7 @@ public class BookService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         Page<Book> books = bookRepository.findAllDisplayableBooks(pageable, connectedUser.getName());
 
-
-        return getBookResponsePageResponse(books);
+        return Utils.formatPageResponse(books, bookMapper::toBookResponse);
     }
 
     public PageResponse<BookResponse> findAllBooksByOwner(int page, int size, Authentication connectedUser) {
@@ -78,19 +82,7 @@ public class BookService {
 
         Page<BookTransactionHistory> allBorrowedBooks = transactionHistoryRepository.findAllBorrowedBooks(pageable, connectedUser.getName());
 
-        List<BorrowedBookResponse> borrowedBookResponse = allBorrowedBooks.getContent().stream()
-                .map(bookMapper::toBorrowedBookResponse)
-                .toList();
-
-        return PageResponse.<BorrowedBookResponse>builder()
-                .content(borrowedBookResponse)
-                .totalPages(allBorrowedBooks.getTotalPages())
-                .first(allBorrowedBooks.isFirst())
-                .last(allBorrowedBooks.isLast())
-                .totalElements(allBorrowedBooks.getTotalElements())
-                .number(allBorrowedBooks.getNumber())
-                .size(allBorrowedBooks.getSize())
-                .build();
+        return Utils.formatPageResponse(allBorrowedBooks, bookMapper::toBorrowedBookResponse);
     }
 
     public PageResponse<BorrowedBookResponse> findAllReturnedBooks(int page, int size, Authentication connectedUser) {
@@ -98,19 +90,7 @@ public class BookService {
 
         Page<BookTransactionHistory> allReturnedBooks = transactionHistoryRepository.findAllReturnedBooks(pageable, connectedUser.getName());
 
-        List<BorrowedBookResponse> borrowedBookResponse = allReturnedBooks.stream()
-                .map(bookMapper::toBorrowedBookResponse)
-                .toList();
-
-        return PageResponse.<BorrowedBookResponse>builder()
-                .content(borrowedBookResponse)
-                .totalPages(allReturnedBooks.getTotalPages())
-                .first(allReturnedBooks.isFirst())
-                .last(allReturnedBooks.isLast())
-                .totalElements(allReturnedBooks.getTotalElements())
-                .number(allReturnedBooks.getNumber())
-                .size(allReturnedBooks.getSize())
-                .build();
+        return Utils.formatPageResponse(allReturnedBooks, bookMapper::toBorrowedBookResponse);
     }
 
     public Integer updateShareableStatus(Integer bookId, Authentication connectedUser) {
@@ -167,6 +147,14 @@ public class BookService {
                 .returnApproved(false)
                 .build();
 
+        notificationService.sendNotification(
+                book.getCreatedBy(),
+                Notification.builder()
+                        .status(NotificationStatus.BORROWED)
+                        .bookTitle(book.getTitle())
+                        .message("Your book has been borrowed")
+                        .build()
+        );
         return transactionHistoryRepository.save(bookTransactionHistory).getId();
     }
 
@@ -189,7 +177,17 @@ public class BookService {
 
         bookTransactionHistory.setReturned(true);
 
-        return bookTransactionHistoryRepository.save(bookTransactionHistory).getId();
+        var saved = bookTransactionHistoryRepository.save(bookTransactionHistory);
+
+        notificationService.sendNotification(
+                book.getCreatedBy(),
+                Notification.builder()
+                        .status(NotificationStatus.RETURNED)
+                        .message("Your book has been returned")
+                        .bookTitle(book.getTitle())
+                        .build()
+        );
+        return saved.getId();
     }
 
     public Integer approveReturnBorrowedBook(Integer bookId, Authentication connectedUser) {
@@ -211,7 +209,17 @@ public class BookService {
 
         bookTransactionHistory.setReturnApproved(true);
 
-        return transactionHistoryRepository.save(bookTransactionHistory).getId();
+        var saved = transactionHistoryRepository.save(bookTransactionHistory);
+
+        notificationService.sendNotification(
+                bookTransactionHistory.getCreatedBy(),
+                Notification.builder()
+                        .bookTitle(book.getTitle())
+                        .message("Your book return has been approved")
+                        .status(NotificationStatus.RETURN_APPROVED)
+                        .build()
+        );
+        return saved.getId();
     }
 
     public void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer bookId) {

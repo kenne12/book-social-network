@@ -12,7 +12,6 @@ export class KeycloakService {
     private _keycloak: Keycloak | undefined;
     private _profile: UserProfile | undefined;
 
-
     async init() {
         const authenticated = await this.keycloak?.init({
             onLoad: "login-required",
@@ -38,7 +37,7 @@ export class KeycloakService {
             this._keycloak = new Keycloak({
                 url: environment.KEYCLOAK_SERVER_URL,
                 realm: "book-social-network",
-                clientId: "bsn"
+                clientId: environment.KEYCLOAK_CLIENT_ID
             });
         }
 

@@ -36,7 +36,8 @@
 
                     <i class="fa-solid fa-circle-check"
                        (click)="approveBookReturn(book)"
-                       [class.text-success]="book.returnApproved"></i>
+                       [class.text-success]="book.returnApproved"
+                       [ngClass]="{'cursor-pointer' : !book.returnApproved}"></i>
                 </div>
             </td>
         </tr>

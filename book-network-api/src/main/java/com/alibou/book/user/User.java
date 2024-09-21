@@ -44,6 +44,8 @@ public class User implements UserDetails, Principal, Serializable {
     private String email;
 
     private String password;
+
+    @Column(name = "account_locked")
     private boolean accountLocked;
     private boolean enabled;
 
