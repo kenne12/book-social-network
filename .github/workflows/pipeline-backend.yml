@@ -143,7 +143,7 @@ jobs:
           export EMAIL_HOSTNAME= ${{ secrets.EMAIL_HOSTNAME }}
           export EMAIL_USER_NAME= ${{ secrets.EMAIL_USER_NAME }}
           export EMAIL_PASSWORD= ${{ secrets.EMAIL_PASSWORD }}
-          cd ci-cd
+          cd bsn-ci-cd
           docker-compose -f docker-compose.yml pull -q
           docker-compose down
           docker-compose -f docker-compose.yml up -d
