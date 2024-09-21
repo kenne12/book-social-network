@@ -3,8 +3,8 @@ services:
     container_name: postgres-sql-bsn
     image: postgres
     environment:
-      POSTGRES_USER: username
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin_sql_1234
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: book_social_network
     volumes:
@@ -67,9 +67,15 @@ services:
     ports:
       - "8088:8088"
     environment:
-      - BSN_DATABASE_URL=jdbc:postgresql://192.168.1.10:5435/book_social_network
-      - BSN_DATABASE_USERNAME=username
-      - BSN_DATABASE_PASSWORD=password
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://192.168.1.10:5432/book_social_network
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin_sql_1234
+      - BSN_DATABASE_URL=jdbc:postgresql://192.168.1.10:5432/book_social_network
+      - BSN_DATABASE_USERNAME=postgres
+      - BSN_DATABASE_PASSWORD=admin_sql_1234
+#      - BSN_DATABASE_URL=jdbc:postgresql://192.168.1.10:5435/book_social_network
+#      - BSN_DATABASE_USERNAME=username
+#      - BSN_DATABASE_PASSWORD=password
       - BSN_ACTIVATION_URL=http://book-sn-ui:80/activate-account
       - EMAIL_HOSTNAME=mail-dev-bsn
       - EMAIL_USER_NAME=kenne
