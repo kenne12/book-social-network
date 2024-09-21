@@ -6,6 +6,7 @@ on:
       - ci/pipeline
       - main
       - develop
+      - fix/pipeline
     paths:
       - book-network-api/**
       - docker/backend/**

@@ -3,14 +3,15 @@ package com.alibou.book.book;
 import com.alibou.book.common.BaseEntity;
 import com.alibou.book.feedback.FeedBack;
 import com.alibou.book.history.BookTransactionHistory;
-import com.alibou.book.user.User;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.List;
 
@@ -24,9 +25,13 @@ import java.util.List;
 public class Book extends BaseEntity {
 
     private String title;
+
+    @Column(name ="author_name")
     private String authorName;
     private String isbn;
     private String synopsis;
+
+    @Column(name = "book_cover")
     private String bookCover;
 
     private boolean archived;
