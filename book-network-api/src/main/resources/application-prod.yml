@@ -11,6 +11,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        boot:
+          allow_jdbc_metadata_access: false
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
