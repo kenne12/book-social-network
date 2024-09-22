@@ -28,18 +28,18 @@ public class BaseEntity {
     private Integer id;
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, name = "created_date")
     private LocalDateTime createdDate;
 
     @LastModifiedDate
-    @Column(insertable = false)
+    @Column(insertable = false, name = "last_modified_date")
     private LocalDateTime lastModifiedDate;
 
     @CreatedBy
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, name = "created_by")
     private String createdBy;
 
     @LastModifiedBy
-    @Column(insertable = false)
+    @Column(insertable = false, name = "last_modified_by")
     private String lastModifiedBy;
 }

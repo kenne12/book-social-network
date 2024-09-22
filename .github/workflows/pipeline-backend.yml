@@ -6,6 +6,7 @@ on:
       - ci/pipeline
       - main
       - develop
+      - fix/pipeline
     paths:
       - book-network-api/**
       - docker/backend/**
@@ -82,7 +83,7 @@ jobs:
     name: Build Docker image
     runs-on: self-hosted
     needs: [build]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/fix/pipeline'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -129,7 +130,7 @@ jobs:
     name: Deploy Backend
     runs-on: self-hosted
     needs: [build-image]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/fix/pipeline'
     steps:
       - name: Create deploy folder
         run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "mkdir -p bsn-ci-cd"

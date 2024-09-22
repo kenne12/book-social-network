@@ -6,6 +6,7 @@ on:
       - ci/pipeline
       - main
       - develop
+      - fix/pipeline
     paths:
       - book-network-ui
       - docker/frontend/**
@@ -17,7 +18,7 @@ jobs:
   build-image:
     name: Build FE Docker image
     runs-on: self-hosted
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/fix/pipeline'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -48,7 +49,7 @@ jobs:
     name: Deploy Frontend
     runs-on: self-hosted
     needs: [ build-image ]
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/fix/pipeline'
     steps:
       - name: Create deploy folder
         run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "mkdir -p bsn-ci-cd"

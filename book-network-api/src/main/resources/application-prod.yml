@@ -1,9 +1,11 @@
 spring:
   datasource:
-    url: ${BSN_DATABASE_URL:jdbc:postgresql://192.168.1.10:5435/book_social_network}
-    username: ${BSN_DATABASE_USERNAME:username}
-    password: ${BSN_DATABASE_PASSWORD:password}
+    url: ${BSN_DATABASE_URL:jdbc:postgresql://192.168.1.10:5432/book_social_network}
+    username: ${BSN_DATABASE_USERNAME:postgres}
+    password: ${BSN_DATABASE_PASSWORD:admin_sql_1234}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      allow-pool-suspension: true
   jpa:
     hibernate:
       ddl-auto: update
